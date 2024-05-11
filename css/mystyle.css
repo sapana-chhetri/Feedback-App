@@ -1,0 +1,25 @@
+#btnSave {
+    width: auto;
+    display:inline-block;
+}
+img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+#ratingFields {
+    display: none;
+}
+label.error{
+    color: #F00;
+    font-weight: bold;
+}
+input.error,
+select.error,
+textarea.error {
+    border: 1px red solid;
+}
+
+footer h1 {
+    font-weight: bold;
+}

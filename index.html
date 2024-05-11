@@ -1,0 +1,229 @@
+<!--
+Programming Mobile Application
+Assignment 3
+Index.html
+created by : Sapana Chhetri: 2024/02/19
+email: Schhetri8478@conestogac.on.ca
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>Assignment 3</title>
+    <!--jquery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jquery mobile-->
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <script src="js/lib/jquery.validate.js"></script>
+    <!--jquery mobile stylesheet-->
+    <link rel="stylesheet" href="css/lib/jquery.mobile-1.4.5.css">
+    <!--our style-->
+    <link rel="stylesheet" href="css/mystyle.css">
+    <script src="js/scutil.js"></script>
+    <script src="js/scglobal.js"></script>
+    <script src="js/scfacade.js"></script>
+    <script src="js/scdatabase.js"></script>
+    <script src="js/scDal.js"></script>
+    <script src="js/scmodel.js"></script>
+</head>
+<body>
+<!--Homepage-->
+<div id="scHomePage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Feedback App</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#scHomePage" data-icon="home" class="ui-btn-active ui-state-persist">Home</a></li>
+                <li><a href="#scAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#scViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                <li><a href="#scSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <h1 id="customHeading">Sapana Chhetri's Feedback App</h1>
+        <p>Welcome to the Sapana Chhetri's Feedback app. A prototype designed for mobile programming class.
+            This is the first iteration of the app to keep track of different places you visited
+            along With your reviews.
+        </p>
+        <img src="img/sc-image.png" alt="Customer service" >
+        <p>Please feel free to contact me if you have any Suggestions!</p>
+        <a href="" data-role="button" data-icon="plus" data-iconpos="left">Call: 519.748.5422</a>
+        <a href="" data-role="button" data-icon="plus" data-iconpos="left">schhetri8478@conestogac.on.ca</a>
+        <p>Website:</p>
+        <a href="" data-role="button" data-icon="plus" data-iconpos="left">Conestoga College</a>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="a">
+        <h1> &copy; 2024 Sapana Chhetri </h1>
+    </footer>
+</div>
+<!--Add FeedBack Page-->
+<div id="scAddFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Add a Feedback</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#scHomePage" data-icon="home" >Home</a></li>
+                <li><a href="#scAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist">Add</a></li>
+                <li><a href="#scViewFeedbackPage" data-icon="grid">Reviews</a></li>
+                <li><a href="#scSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmAdd" name="frmAdd" >
+            <label for="txtbusinessName">Business Name:</label>
+            <input type="text" name="txtbusinessName" id="txtbusinessName">
+            <label for="cmbType">Type</label>
+            <select id="cmbType" name="cmbType">
+                <option value="Other">Other</option>
+                <option value="Canada">Canada</option>
+                <option value="Asian">Asian</option>
+            </select>
+            <label for="txtreviewerEmail">Reviewer Email:</label>
+            <input type="text" name="txtreviewerEmail" id="txtreviewerEmail">
+            <label for="reviewerComments">Reviewer Comments:</label>
+            <textarea id="reviewerComments" name="reviewerComments"></textarea>
+            <label for="reviewerDate">Reviewer Date:</label>
+            <input type="date" id="reviewerDate" name="reviewerDate" data-clear-btn="true">
+            <label for="chckRate">Do you want to add your Rating?</label>
+            <input type="checkbox" id="chckRate" name="chckRate">
+            <div id="ratingFields" >
+                <label for="foodQuality">Food quality(0-5)</label>
+                <input type="number" id="foodQuality" name="foodQuality" placeholder="0">
+                <label for="service">Service(0-5)</label>
+                <input type="number" id="service" name="service" placeholder="0">
+                <label for="value">value(0-100)</label>
+                <input type="number" id="value" name="value" placeholder="0">
+                <label for="overallRating">Overall Rating(Calculated)</label>
+                <input type="text" id="overallRating" name="overallRating" readonly>
+            </div>
+            <button type="button" id="btnSave" name="btnSave" class="ui-btn-active" data-position="left" >Save</button>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="a">
+        <h1> &copy; 2024 Sapana Chhetri </h1>
+    </footer>
+</div>
+<!--ReviewPage-->
+<div id="scViewFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>List of Reviews</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#scHomePage" data-icon="home" >Home</a></li>
+                <li><a href="#scAddFeedbackPage" data-icon="plus" >Add</a></li>
+                <li><a href="#scViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a></li>
+                <li><a href="#scSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <ul id="lstViewFeedback" class="ui-listview-inset" data-role="listview" >
+            <li data-icon="false" >
+                <a href="#scModifyFeedbackPage" >
+                    <h2>Business Name: Walmart Supercenter</h2>
+                    <p>Reviewer Email: someone@gmail.com</p>
+                    <p>Comments: Good Customer Service</p>
+                    <p>Overall Rating: 90%</p>
+                </a>
+            </li>
+            <li data-icon="false">
+                <a href="#scModifyFeedbackPage" >
+                    <h2>Business Name: Tim Hortons</h2>
+                    <p>Reviewer Email: unknown@gmail.com</p>
+                    <p>Comments: Excellent Chocolate Cookies</p>
+                    <p>Overall Rating: 90%</p>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="a">
+        <h1> &copy; 2024 Sapana Chhetri </h1>
+    </footer>
+</div>
+<!--SettingPage-->
+<div id="scSettingsPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Settings</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#scHomePage" data-icon="home" >Home</a></li>
+                <li><a href="#scAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#scViewFeedbackPage" data-icon="grid" >Reviews</a></li>
+                <li><a href="#scSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmSettingsPage" name="frmSettingsPage" action="#">
+            <label for="defaultReviewerEmail">Default Reviewer Email:</label>
+            <input type="text" name="defaultReviewerEmail" id="defaultReviewerEmail"  >
+            <button type="button" id="btnSaveDefaults" name=btnSaveDefaults" class="ui-btn-active" >Save Defaults</button>
+            <button type="button" id="btnClearAllReviews" name="btnClearAllReviews" data-theme="b">Clear all reviews</button>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="a">
+        <h1> &copy; 2024 Sapana Chhetri </h1>
+    </footer>
+</div>
+<!--ModifyPage-->
+<div id="scModifyFeedbackPage" data-role="page">
+    <header data-role="header" data-position="fixed" data-theme="a">
+        <h1>Modify Feedback</h1>
+        <div data-role="navbar" data-iconpos="top">
+            <ul>
+                <li><a href="#scHomePage" data-icon="home" >Home</a></li>
+                <li><a href="#scAddFeedbackPage" data-icon="plus">Add</a></li>
+                <li><a href="#scViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist">Reviews</a></li>
+                <li><a href="#scSettingsPage" data-icon="gear">Settings</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="frmModifyPage" name="frmModifyPage" >
+            <div hidden>
+                <label for="txtId">Id</label>
+                <input type="text" id="txtId" name="txtId" data-clear-btn="true" placeholder="Enter Id">
+            </div>
+            <label for="modifybusinessName">Business Name:</label>
+            <input type="text" name="modifybusinessName" id="modifybusinessName">
+            <label for="modifycmbType">Type</label>
+            <select id="modifycmbType" name="modifycmbType">
+                <option value="Other">Other</option>
+                <option value="Canada">Canada</option>
+                <option value="Asian">Asian</option>
+            </select>
+            <label for="modifyreviewerEmail">Reviewer Email:</label>
+            <input type="text" name="modifyreviewerEmail" id="modifyreviewerEmail">
+            <label for="modifyreviewerComments">Reviewer Comments:</label>
+            <textarea id="modifyreviewerComments" name="modifyreviewerComments"></textarea>
+
+            <label for="modifyreviewerDate">Reviewer Date:</label>
+            <input type="date" id="modifyreviewerDate" name="modifyreviewerDate" data-clear-btn="true">
+
+            <label for="modifychckRate">Do you want to add your Rating?</label>
+            <input type="checkbox" id="modifychckRate" name="modifychckRate">
+            <div id="modifyratingFields" style="display: none;">
+                <label for="modifyFoodQuality">Food quality(0-5)</label>
+                <input type="number" id="modifyFoodQuality" name="modifyFoodQuality" placeholder="0">
+                <label for="modifyService">Service(0-5)</label>
+                <input type="number" id="modifyService" name="modifyService" placeholder="0">
+                <label for="modifyValue">value(0-100)</label>
+                <input type="number" id="modifyValue" name="modifyValue" placeholder="0">
+                <label for="modifyoverallRating">Overall Rating(Calculated)</label>
+                <input type="text" id="modifyoverallRating" name="modifyoverallRating">
+            </div>
+            <div data-role="controlgroup" data-type="horizontal" class="center-container" >
+                <button type="button" id="btnCancel" name="btnCancel" data-theme="a">Cancel</button>
+                <button type="button" id="btnDelete" name="btnDelete" data-theme="b">Delete</button>
+                <button type="button" id="btnUpdate" name="btnUpdate" class="ui-btn-active" >Update</button>
+            </div>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="a">
+        <h1> &copy; 2024 Sapana Chhetri </h1>
+    </footer>
+</div>
+</body>
+</html>
